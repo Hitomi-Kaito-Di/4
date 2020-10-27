@@ -1,0 +1,253 @@
+/*Напишите иерархию наследования для классов Quadrilateral(четырехугольник), Trapezoid(трапеция), Parallelogram(параллелограмм), 
+Rectangle(прямоугольник) и Square(квадрат).Сделайте иерархию настолько глубокой(т.е.многоуровневой), насколько это возможно.
+Закрытыми данными класса Quadrilateral должны быть пары координат(x, y) четырех угловых точек Quadrilateral.
+Напишите программу, которая создает объекты каждого из этих классов и выводит данные о них в файл.*/
+#include <iostream>
+#include <iomanip>
+#include <windows.h>
+#include <math.h>
+using namespace std;
+class Quadrilateral {
+	int x1, y1, x2, y2, x3, y3, x4, y4;
+public:
+	int IntCoordinate() {
+		int f;
+		while (!(cin >> f))
+		{
+			cin.clear();
+			cin.ignore(cin.rdbuf()->in_avail());
+			cout << "Ошибка ввода. Введите число:" << endl;
+		}
+		return f;
+	}
+	void SetCoordinate1(int x1, int y1) {
+		this->x1 = x1;
+		this->y1 = y1;
+	}
+	void SetCoordinate2(int x2, int y2) {
+		this->x2 = x2;
+		this->y2 = y2;
+	}
+	void SetCoordinate3(int x3, int y3) {
+		this->x3 = x3;
+		this->y3 = y3;
+	}
+	void SetCoordinate4(int x4, int y4) {
+		this->x4 = x4;
+		this->y4 = y4;
+	}
+	int GetCoordinateX1() {
+		return x1;
+	}
+	int GetCoordinateY1() {
+		return y1;
+	}
+	int GetCoordinateX2() {
+		return x2;
+	}
+	int GetCoordinateY2() {
+		return y2;
+	}
+	int GetCoordinateX3() {
+		return x3;
+	}
+	int GetCoordinateY3() {
+		return y3;
+	}
+	int GetCoordinateX4() {
+		return x4;
+	}
+	int GetCoordinateY4() {
+		return y4;
+	}
+	void First() {
+		int x1, y1;
+		cout << "Введите координату X1: ";
+		x1 = IntCoordinate();
+		cout << "Введите координату Y1: ";
+		y1 = IntCoordinate();
+		SetCoordinate1(x1, y1);
+		cout << GetCoordinateX1() << " " << GetCoordinateY1() << endl;
+	}
+	void Second() {
+		int x2, y2;
+		cout << "Введите координату X2: ";
+		x2 = IntCoordinate();
+		cout << "Введите координату Y2: ";
+		y2 = IntCoordinate();
+		SetCoordinate2(x2, y2);
+		cout << GetCoordinateX2() << " " << GetCoordinateY2() << endl;
+	}
+	void Third() {
+		int x3, y3;
+		cout << "Введите координату X3: ";
+		x3 = IntCoordinate();
+		cout << "Введите координату Y3: ";
+		y3 = IntCoordinate();
+		SetCoordinate3(x3, y3);
+		cout << GetCoordinateX3() << " " << GetCoordinateY3() << endl;
+	}
+	void Forth() {
+		int x4, y4;
+		cout << "Введите координату X4: ";
+		x4 = IntCoordinate();
+		cout << "Введите координату Y4: ";
+		y4 = IntCoordinate();
+		SetCoordinate4(x4, y4);
+		cout << GetCoordinateX4() << " " << GetCoordinateY4() << endl;
+	}
+};
+class Trapezoid : public Quadrilateral {
+public:
+	int ForthX() {
+		int x4;
+		cout << "Введите координату X4: ";
+		x4 = IntCoordinate();
+		return x4;
+	}
+	int ForthY() {
+		int y1, y2, y3, y4;
+		y1 = GetCoordinateY1();
+		y2 = GetCoordinateY2();
+		y3 = GetCoordinateY3();
+		y4 = y1 + y3 - y2;
+		cout << "Программа вычислила координату Y4: " << y4 << endl;
+		return y4;
+	}
+	void Forth(int x4, int y4){
+		SetCoordinate4(x4, y4);
+		cout << GetCoordinateX4() << " " << GetCoordinateY4() << endl;
+	}
+	void SrLine() {
+		int x1, x2, x3, x4;
+		double line;
+		x1 = GetCoordinateX1();
+		x2 = GetCoordinateX2();
+		x3 = GetCoordinateX3();
+		x4 = GetCoordinateX4();
+		line = (x3 - x2 + x4 - x1) / 2;
+		cout << "Средняя линия: " << line << endl;
+	}
+};
+class Parallelogram : public Trapezoid {
+public:
+	int ForthX() {
+		int x1, x2, x3, x4;
+		x1 = GetCoordinateX1();
+		x2 = GetCoordinateX2();
+		x3 = GetCoordinateX3();
+		x4 = x1 + x3 - x2;
+		cout << "Программа вычислила координату X4: " << x4 << endl;
+		return x4;
+	}
+};
+class Rectanglee : public Parallelogram {
+public:
+	void Second() {
+		int x1, x2, y2, y3;
+		x1 = GetCoordinateX1();
+		y3 = GetCoordinateY3();
+		x2 = x1;
+		y2 = y3;
+		cout << "Программа вычислила координату X2: " << x2 << endl;
+		cout << "Программа вычислила координату Y2: " << y2 << endl;
+		SetCoordinate2(x2, y2);
+		cout << GetCoordinateX2() << " " << GetCoordinateY2() << endl;
+	}
+	int ForthX() {
+		int x3, x4;
+		x3 = GetCoordinateX3();
+		x4 = x3;
+		cout << "Программа вычислила координату X4: " << x4 << endl;
+		return x4;
+	}
+	int ForthY() {
+		int y1, y4;
+		y1 = GetCoordinateY1();
+		y4 = y1;
+		cout << "Программа вычислила координату Y4: " << y4 << endl;
+		return y4;
+	}
+	void Area() {
+		int x1, x3, y1, y3, a, b, sq;
+		x1 = GetCoordinateX1();
+		x3 = GetCoordinateX3();
+		y1 = GetCoordinateY1();
+		y3 = GetCoordinateY3();
+		a = x3 - x1;
+		b = y3 - y1;
+		sq = fabs(a * b);
+		cout << "Площадь фигуры: " << sq << endl;
+	}
+};
+class Square : public Rectanglee {
+public:
+	int hight(){
+		int h;
+		cout << "Введите длину стороны: ";
+		h = IntCoordinate();
+		return h;
+	}
+	void Third() {
+		int x1, x3, y1, y3, h;
+		x1 = GetCoordinateX1();
+		y1 = GetCoordinateY1();
+		h = hight();
+		x3 = x1 + h;
+		y3 = y1 + h;
+		cout << "Программа вычислила координату X3: " << x3 << endl;
+		cout << "Программа вычислила координату Y3: " << y3 << endl;
+		SetCoordinate3(x3, y3);
+		cout << GetCoordinateX3() << " " << GetCoordinateY3() << endl;
+	}
+
+};
+
+int main() {
+	setlocale(LC_ALL, "Russian");
+	cout << "Вводите все координаты по часовой стрелке начиная с нижней левой" << endl;
+	cout << "Четырехугольник" << endl;
+	int x4, y4;
+	Quadrilateral Q;
+	Q.First();
+	Q.Second();
+	Q.Third();
+	Q.Forth();
+	cout << "Трапеция" << endl;
+	Trapezoid T;
+	T.First();
+	T.Second();
+	T.Third();
+	x4 = T.ForthX();
+	y4 = T.ForthY();
+	T.Forth(x4, y4);
+	T.SrLine();
+	cout << "Параллелограмм" << endl;
+	Parallelogram P;
+	P.First();
+	P.Second();
+	P.Third();
+	x4 = P.ForthX();
+	y4 = P.ForthY();
+	P.Forth(x4, y4);
+	cout << "Далее необходимо вводить координаты противоположных вершин: первой и третьей" << endl;
+	cout << "Прямоугольник" << endl;
+	Rectanglee R;
+	R.First();
+	R.Third();
+	R.Second();
+	x4 = R.ForthX();
+	y4 = R.ForthY();
+	R.Forth(x4, y4);
+	R.Area();
+	cout << "Квадрат" << endl;
+	Square S;
+	S.First();
+	S.Third();
+	S.Second();
+	x4 = S.ForthX();
+	y4 = S.ForthY();
+	S.Forth(x4, y4);
+	S.Area();
+	return 0;
+}
